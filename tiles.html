@@ -1,0 +1,51 @@
+<html>
+
+<head>
+	<title>Tiles</title>
+	<meta http-equiv="content-type" content="text/html; charset=ISO-8859-1">
+	<script type="text/javascript" src="glMatrix-2.2.1.js"></script>
+	<script type="text/javascript" src="webgl-utils.js"></script>
+	<script type="text/javascript" src="octree.js"></script>
+	<script type="text/javascript" src="intersect.js"></script>
+	<script type="text/javascript" src="view.js"></script>
+
+
+	<script id="shader-vs" type="x-shader/x-vertex">
+
+attribute vec3 aVertexPosition;
+attribute vec3 aVertexNormal;
+
+varying vec3 vNormal;
+
+uniform mat4 uMVMatrix;
+uniform mat4 uPMatrix;
+
+void main(void) {
+	vNormal = aVertexNormal;
+    gl_Position = uPMatrix * uMVMatrix * vec4(aVertexPosition, 1.0);
+
+}
+	</script>
+	<script id="shader-fs" type="x-shader/x-fragment">
+precision mediump float;
+varying vec3 vNormal;
+
+void main(void) {
+    gl_FragColor = vec4(abs(vNormal), 1.0);
+}
+	</script>
+
+	<script type="text/javascript" src="tiles.js"></script>
+
+
+
+</head>
+
+<body onload="start()">
+  <div>
+  <canvas id="canvas" width="640" height="640">
+    Your browser doesn't appear to support the HTML5 <code>&lt;canvas&gt;</code> element.
+  </canvas>
+  </div>
+  <div></div>
+</body>
